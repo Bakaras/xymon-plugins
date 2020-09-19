@@ -10,7 +10,6 @@ LANGUAGE=C
 # newline
 NL=$'\n'
 
-DEBUG=NO
 function debug () {
     if [ "${DEBUG}" = "YES" ]; then echo "DEBUG: $@"; fi
 }
