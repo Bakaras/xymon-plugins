@@ -1,5 +1,5 @@
-# smtp6
-smtp6
+# smtp6.sh
+smtp6.sh
 
-Monitoring smtp server IPv6 adresses.
+Monitoring smtp servers IPv6 adresses.
 
