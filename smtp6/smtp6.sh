@@ -26,15 +26,8 @@ NCTIMEOUT=15
 
 # XYMONNETWORK must be set.
 if [ -z ${XYMONNETWORK} ]; then debug "No XYMONNETWORK set. Exit."; exit 0; fi
-
-if [ "${XYMONNETWORK}" = "CENTRAL" ]
-then
-    # We are a central Server. Test all hosts with ntpd tag except other locations.
-    HOSTLIST=$(${XYMONCLIENTHOME}/bin/xymongrep --net --test-untagged ${TAG})
-else
-    # Wa are distributed test-agent. Test only hosts with my XYMONNETWORK tag.
-    HOSTLIST=$(${XYMONCLIENTHOME}/bin/xymongrep --net ${TAG})
-fi
+# We are distributed test-agent. Test only hosts with my XYMONNETWORK tag.
+HOSTLIST=$(${XYMONCLIENTHOME}/bin/xymongrep --net ${TAG})
 
 if [ "${HOSTLIST}" = "" ]
 then
