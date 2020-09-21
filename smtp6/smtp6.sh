@@ -2,6 +2,7 @@
 
 TAG=smtp6
 COLUMN=smtp6
+TTL=50
 
 LC_ALL=C
 LANG=C
@@ -16,8 +17,8 @@ function debug () {
 
 function sendmsg {
  local MSG_TIME=$(${DATE})
- ${XYMON} ${XYMSRV} "status+50 ${HOST}.${COLUMN} ${COLOR} ${MSG_TIME} ${MSG}"
- debug "MSG:${NL}status+50 ${HOST}.${COLUMN} ${COLOR} ${MSG_TIME} ${MSG}"
+ ${XYMON} ${XYMSRV} "status+${TTL} ${HOST}.${COLUMN} ${COLOR} ${MSG_TIME} ${MSG}"
+ debug "MSG:${NL}status+${TTL} ${HOST}.${COLUMN} ${COLOR} ${MSG_TIME} ${MSG}"
 }
 
 # netcat
