@@ -60,26 +60,3 @@ echo "${MSG}" | ${XYMON} $BBDISP @
 done
 
 exit 0
-
-${XYMONCLIENTHOME}/bin/xymongrep conn6 | cut -d ' ' -f 2 | fping6 -e | while read host line ; do
-        echo "$host $line"
-	TIME=0
-	case $line in
-		is?alive*) color="green"
-		TIME=`echo "$line" | perl -ne 'if (/\(([\d.]+) ?us/) { printf "%f", $1/1000000 }
-						elsif (/\(([\d.]+) ?ms/) { printf "%f", $1/1000 }
-						elsif (/\(([\d.]+)/) { print $1 }'`
-		;;
-		*) color="red"
-		if ${XYMONCLIENTHOME}/bin/xymongrep conn6 | grep $host | grep -q dialup ; then
-			color="clear"
-		fi
-		;;
-	esac
-	( echo "status $host.conn6 $color `date`"
-	  host -t AAAA $host
-	  echo
-	  echo "&$color $host $line"
-	  echo "Seconds: $TIME"
-	) | ${XYMON} $BBDISP @
-done
