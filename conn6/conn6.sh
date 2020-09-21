@@ -2,25 +2,20 @@
 
 # To enable IPv6 connectivity tests, add the "conn6" tag to bb-hosts.
 
-    # XYMONNETWORK must be set.
-    if [ -z ${XYMONNETWORK} ]
-    then
-        echo "No XYMONNETWORK set. Exit."
-        exit 0
-    fi
-    if [ "${XYMONNETWORK}" = "CENTRAL" ]
-    then
-        # We are a central Server. Test all hosts with ntpd tag except other locations.
-	HOSTLIST=$(${XYMONCLIENTHOME}/bin/xymongrep --net --test-untagged conn6 | ${CUT} -d ' ' -f 2)
-    else
-        # Wa are distributed test-agent. Test only hosts with my XYMONNETWORK tag.
-	HOSTLIST=$(${XYMONCLIENTHOME}/bin/xymongrep --net conn6 | ${CUT} -d ' ' -f 2)
-    fi
-    if [ "${HOSTLIST}" = "" ]
-    then
-        echo "No hosts with conn6 tag found in ${BBHOME}/etc/bb-hosts"
-        exit 0
-    fi
+# XYMONNETWORK must be set.
+if [ -z ${XYMONNETWORK} ]
+then
+    echo "No XYMONNETWORK set. Exit."
+    exit 0
+fi
+	
+HOSTLIST=$(${XYMONCLIENTHOME}/bin/xymongrep --net conn6 | ${CUT} -d ' ' -f 2)
+    
+if [ "${HOSTLIST}" = "" ]
+then
+    echo "No hosts with conn6 tag found in ${BBHOME}/etc/bb-hosts"
+    exit 0
+fi
 
 #echo "${HOSTLIST}"
 
