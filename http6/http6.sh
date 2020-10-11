@@ -8,7 +8,7 @@
     LANGUAGE=C
 
     CURLCMD="/usr/bin/curl"
-    CURL="/usr/bin/curl --config ${XYMONTMP}/curlrc"
+    CURL="${CURLCMD} --config ${XYMONTMP}/curlrc"
     #
     # XYMONNETWORK must be set.
     if [ -z ${XYMONNETWORK} ]
